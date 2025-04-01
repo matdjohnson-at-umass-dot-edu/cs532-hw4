@@ -54,7 +54,7 @@ public class DetailedFraudDetector
         lastTxPostalCode.clear();
 
         if (detailedTransaction != null) {
-            lastTxSmall.update(detailedTransaction.getAmount() <= SMALL_AMOUNT); // use non-null value for tracking previous transaction amount
+            lastTxSmall.update(detailedTransaction.getAmount() < SMALL_AMOUNT); // use non-null value for tracking previous transaction amount
             lastTxPostalCode.update(detailedTransaction.getPostalCode()); // add population of postal code tracker
         }
     }
