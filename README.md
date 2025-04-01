@@ -1,5 +1,7 @@
 # CS-532 - HW4 - Flink
 
+Repository URL: `https://github.com/matdjohnson-at-umass-dot-edu/cs532-hw4`
+
 ## IntelliJ configuration
 
 Steps were written for IntelliJ 2023.3.4 Ultimate Edition.
