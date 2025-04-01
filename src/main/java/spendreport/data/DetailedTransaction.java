@@ -8,16 +8,16 @@ public final class DetailedTransaction { // update class name
 
     private long accountId;
     private long timestamp;
-    private double amount;
     private String postalCode; // add postal code
+    private double amount;
 
     public DetailedTransaction() {}
 
-    public DetailedTransaction(long accountId, long timestamp, double amount, String postalCode) { // add postal code to constructor
+    public DetailedTransaction(long accountId, long timestamp, String postalCode, double amount) { // add postal code to constructor
         this.accountId = accountId;
         this.timestamp = timestamp;
-        this.amount = amount;
         this.postalCode = postalCode;
+        this.amount = amount;
     }
 
     public long getAccountId() {
@@ -36,20 +36,20 @@ public final class DetailedTransaction { // update class name
         this.timestamp = timestamp;
     }
 
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
     public String getPostalCode() { // add postal code getter
         return postalCode;
     }
 
     public void setPostalCode(String postalCode) { // add postal code setter
         this.postalCode = postalCode;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     @Override
@@ -62,13 +62,13 @@ public final class DetailedTransaction { // update class name
         DetailedTransaction detailedTransaction = (DetailedTransaction) o;
         return getAccountId() == detailedTransaction.getAccountId() &&
                 getTimestamp() == detailedTransaction.getTimestamp() &&
-                getAmount() == detailedTransaction.getAmount() &&
-                getPostalCode().equals(detailedTransaction.getPostalCode()); // clean up equality statement
+                getPostalCode().equals(detailedTransaction.getPostalCode()) &&
+                getAmount() == detailedTransaction.getAmount(); // clean up equality statement
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAccountId(), getTimestamp(), getAmount(), getPostalCode()); // add postal code to hashCode
+        return Objects.hash(getAccountId(), getTimestamp(), getPostalCode(), getAmount()); // add postal code to hashCode
     }
 
     @Override
@@ -76,8 +76,8 @@ public final class DetailedTransaction { // update class name
         return "DetailedTransaction{" +
                 "accountId=" + getAccountId() + ", " +
                 "timestamp=" + getTimestamp() + ", " +
-                "amount=" + getAmount() + ", " +
-                "postalCode=" + getPostalCode() +
+                "postalCode=" + getPostalCode() + ", " +
+                "amount=" + getAmount() +
                 "}"; // add postal code to toString
     }
 

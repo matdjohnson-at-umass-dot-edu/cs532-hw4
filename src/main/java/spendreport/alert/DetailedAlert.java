@@ -8,11 +8,11 @@ import java.util.Objects;
 public final class DetailedAlert { // update class name
 
     private static final long serialVersionUID = 1L;
-    private long id;dd
+    private long id;
     private long accountId; // update id name to reflect actual id type
     private long timestamp;
-    private double amount;
     private String postalCode; // add postal code
+    private double amount;
 
     public DetailedAlert() { } // add no-arg constructor for serialization compatability
 
@@ -20,8 +20,8 @@ public final class DetailedAlert { // update class name
         this.id = detailedTransaction.getAccountId();
         this.accountId = detailedTransaction.getAccountId();
         this.timestamp = detailedTransaction.getTimestamp();
-        this.amount = detailedTransaction.getAmount();
         this.postalCode = detailedTransaction.getPostalCode();
+        this.amount = detailedTransaction.getAmount();
     }
 
     public long getId() { // retain id for serialization support
@@ -48,20 +48,20 @@ public final class DetailedAlert { // update class name
         this.timestamp = timestamp;
     }
 
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
     public String getPostalCode() { // add postal code getter and setter
         return postalCode;
     }
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     @Override
@@ -73,14 +73,14 @@ public final class DetailedAlert { // update class name
         }
         DetailedAlert alert = (DetailedAlert) o;
         return getAccountId() == alert.getAccountId() &&
-               getTimestamp() == alert.getTimestamp() &&
-               getAmount() == alert.getAmount() &&
-               getPostalCode().equals(alert.getPostalCode()); // clean up equality statement
+                getTimestamp() == alert.getTimestamp() &&
+                getPostalCode().equals(alert.getPostalCode()) &&
+                getAmount() == alert.getAmount(); // clean up equality statement
     }
 
     @Override
     public int hashCode() { // update hash code source data
-        return Objects.hash(getAccountId(), getTimestamp(), getAmount(), getPostalCode());
+        return Objects.hash(getAccountId(), getTimestamp(), getPostalCode(), getAmount());
     }
 
     @Override
@@ -88,8 +88,8 @@ public final class DetailedAlert { // update class name
         return "DetailedAlert{" +
                 "accountId=" + getAccountId() + ", " +
                 "timestamp=" + getTimestamp() + ", " +
-                "amount=" + getAmount() + ", " +
-                "postalCode=" + getPostalCode() +
+                "postalCode=" + getPostalCode() + ", " + // postal code for globalization
+                "amount=" + getAmount() +
                 "}"; // add postal code to toString
     }
 
