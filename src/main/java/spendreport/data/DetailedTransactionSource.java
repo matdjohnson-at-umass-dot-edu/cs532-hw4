@@ -11,7 +11,7 @@ public class DetailedTransactionSource extends FromIteratorFunction<DetailedTran
 
     private static final long serialVersionUID = 1L;
 
-    public DetailedTransactionSource(boolean isStatic) {
+    public DetailedTransactionSource(boolean isStatic) { // add option for static or dynamic source data generation
         super(
                 new DetailedTransactionSource.RateLimitedIterator<>(
                         isStatic ?
@@ -21,7 +21,7 @@ public class DetailedTransactionSource extends FromIteratorFunction<DetailedTran
         );
     }
 
-    private static class RateLimitedIterator<T> implements Iterator<T>, Serializable {
+    private static class RateLimitedIterator<T> implements Iterator<T>, Serializable { // iterator as from sample code
         private static final long serialVersionUID = 1L;
         private final Iterator<T> inner;
 

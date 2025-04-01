@@ -8,24 +8,24 @@ import spendreport.data.DetailedTransaction;
 import spendreport.data.DetailedTransactionSource;
 
 
-public class DetailedFraudDetectionJob {
+public class DetailedFraudDetectionJob { // update class name
 
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        boolean generateStatically = false;
+        boolean generateStatically = false; // add variable for tracking test or live data generation
 
-        DataStream<DetailedTransaction> transactions = env
-                .addSource(new DetailedTransactionSource(generateStatically))
+        DataStream<DetailedTransaction> transactions = env  // update source data type
+                .addSource(new DetailedTransactionSource(generateStatically)) // update data source
                 .name("transactions");
 
-        DataStream<DetailedAlert> alerts = transactions
-                .keyBy(DetailedTransaction::getAccountId)
-                .process(new DetailedFraudDetector())
+        DataStream<DetailedAlert> alerts = transactions // update alert data type
+                .keyBy(DetailedTransaction::getAccountId) // update source data type
+                .process(new DetailedFraudDetector()) // update KeyedProcessFunction class
                 .name("fraud-detector");
 
         alerts
-                .addSink(new DetailedAlertSink())
+                .addSink(new DetailedAlertSink()) // update sink function class
                 .name("send-alerts");
 
         env.execute("Fraud Detection");

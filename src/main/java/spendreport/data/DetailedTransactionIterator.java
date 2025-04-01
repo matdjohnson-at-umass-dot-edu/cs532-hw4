@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.SplittableRandom;
 
-final class DetailedTransactionIterator implements Iterator<DetailedTransaction>, Serializable {
+final class DetailedTransactionIterator implements Iterator<DetailedTransaction>, Serializable { // keep class package private and final
 
     private static final long serialVersionUID = 1L;
 
@@ -17,51 +17,51 @@ final class DetailedTransactionIterator implements Iterator<DetailedTransaction>
 
     private long dynamicTimestampValue = 0;
 
-    static DetailedTransactionIterator staticUnbounded() {
+    static DetailedTransactionIterator staticUnbounded() { // add method for test data iterator instantiation
         return new DetailedTransactionIterator(true);
     }
 
-    static DetailedTransactionIterator dynamicUnbounded() {
+    static DetailedTransactionIterator dynamicUnbounded() { // add method for "live" data iterator instantiation
         return new DetailedTransactionIterator(false);
     }
 
-    private DetailedTransactionIterator(boolean isStatic) {
+    private DetailedTransactionIterator(boolean isStatic) { // keep constructor private
         this.isStatic = isStatic;
     }
 
     @Override
     public boolean hasNext() {
-        return true;
+        return true; // both static and dynamic generators are unbounded, return true for all cases
     }
 
     @Override
     public DetailedTransaction next() {
-        if (isStatic) {
+        if (isStatic) { // conditionally generate source data
             return generateStatic();
         } else {
             return generateDynamic();
         }
     }
 
-    private DetailedTransaction generateDynamic() {
+    private DetailedTransaction generateDynamic() { // add dynamic source data generation
         SplittableRandom splittableRandom = new SplittableRandom();
         DetailedTransaction detailedTransaction = new DetailedTransaction(
-                accountIds[splittableRandom.nextInt(0, 5)],
-                dynamicTimestampValue,
-                splittableRandom.nextDouble(amountLowerBound, amountUpperBound),
-                postalCodes[splittableRandom.nextInt(0, 3)]
+                accountIds[splittableRandom.nextInt(0, 5)],         // account id randomly selected from predefined array
+                dynamicTimestampValue,                                           // timestamp incremented starting from 0
+                splittableRandom.nextDouble(amountLowerBound, amountUpperBound), // amount sampled randomly from predfined range
+                postalCodes[splittableRandom.nextInt(0, 3)]         // postal code randomly selected from predefined array
         );
-        dynamicTimestampValue = dynamicTimestampValue + 1;
+        dynamicTimestampValue = dynamicTimestampValue + 1; // increment timestamp value
         return detailedTransaction;
     }
 
-    final private int[] accountIds = { 1, 2, 3, 4, 5 };
-    final private String[] postalCodes = { "01003", "02115", "78712" };
-    final private double amountLowerBound = 0.0;
-    final private double amountUpperBound = 1000.0;
+    final private int[] accountIds = { 1, 2, 3, 4, 5 };                 // ids as defined in assignment
+    final private String[] postalCodes = { "01003", "02115", "78712" }; // postal codes as defined in assignment
+    final private double amountLowerBound = 0.0;                        // amount lower bound as defined in assignment
+    final private double amountUpperBound = 1000.0;                     // amount upper bound as defined in assignment
 
-    private DetailedTransaction generateStatic() {
-        if (staticIteratorIndex >= data.size()) {
+    private DetailedTransaction generateStatic() { // retrieve from prepopulated data array
+        if (staticIteratorIndex >= data.size()) { // wrap on data array index
             staticIteratorIndex = 0;
         }
         DetailedTransaction detailedTransaction = data.get(staticIteratorIndex);
@@ -69,7 +69,7 @@ final class DetailedTransactionIterator implements Iterator<DetailedTransaction>
         return detailedTransaction;
     }
 
-    private static List<DetailedTransaction> data =
+    private static List<DetailedTransaction> data = // update static data source type, add postal code to data
             Arrays.asList(
                     new DetailedTransaction(1, 0L, 188.23, "01003"),
                     new DetailedTransaction(2, 0L, 374.79, "02115"),
